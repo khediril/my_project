@@ -2,20 +2,23 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\DBAL\Types\JsonType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route('/main', name: 'app_main_')]
 class MainController extends AbstractController
 {
-    #[Route('/main', name: 'app_main')]
+    #[Route('/main', name: 'main')]
     public function index(): Response
     {
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
         ]);
     }
-    #[Route('/page2', name: 'app_page2')]
+    #[Route('/page2', name: 'page2')]
     public function page2(): Response
     {
         $tab=["Ali","Salah","Sami","ahlem","Chahd","Chaima"];
@@ -23,7 +26,7 @@ class MainController extends AbstractController
             "tab" => $tab
         ]);
     }
-    #[Route('/page3/{id}', name: 'app_page3')]
+    #[Route('/page3/{id}', name: 'page3')]
     public function page3($id): Response
     {
         
@@ -31,4 +34,15 @@ class MainController extends AbstractController
             "id" => $id
         ]);
     }
+    
+    #[Route('/api', name: 'api')]
+    public function api(): JsonResponse
+    {
+        $response = new JsonResponse(['nom' => 'Ben foulen','prenom' => 'foulen']);
+        return $response;
+        
+    }
+    
+
+
 }

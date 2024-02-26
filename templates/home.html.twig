@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Home{% endblock %}
+{% block body %}
+	<h1>Bienvenue dans ma page d’accueil</h1>
+
+    <img src="{{asset('images/iset.png')}}"/>
+	<h2>
+		Qu'est-ce que Symfony</h2>
+	<p>Symfony est un ensemble de composants PHP, un framework d'application Web,
+					une philosophie et une communauté, tous travaillant ensemble en harmonie.
+	</p>
+    <hr>
+    <a href="{{path('app_main_page2')}}">Vers page 2</a>
+     <a href="{{path('app_main_page3',{id:10})}}">Vers page 3</a>
+{% endblock %}
