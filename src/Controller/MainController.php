@@ -14,8 +14,9 @@ class MainController extends AbstractController
     #[Route('/main', name: 'main')]
     public function index(): Response
     {
+        $tab=["Ali","Salah","Sami","ahlem","Chahd","Chaima"];
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
+            'controller_name' => 'MainController', "tab" => $tab
         ]);
     }
     #[Route('/page2', name: 'page2')]
@@ -41,6 +42,11 @@ class MainController extends AbstractController
         $response = new JsonResponse(['nom' => 'Ben foulen','prenom' => 'foulen']);
         return $response;
         
+    }
+    #[Route('/test', name: 'test')]
+    public function test(): Response
+    {
+        return $this->render('main/test.html.twig');
     }
     
 

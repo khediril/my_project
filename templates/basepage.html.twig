@@ -1,0 +1,26 @@
+{% extends "base2.html.twig" %}
+{% block slider %}
+{% endblock %}
+{% block body %}
+
+  <section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">{% block pagename %}Shop{% endblock %}</h1>
+					<ol class="breadcrumb">
+						<li><a href="index.html">Home</a></li>
+						<li class="active">shop</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% block corps %}
+  je suis dans basepage
+{% endblock %}
+   
+{% endblock %}
