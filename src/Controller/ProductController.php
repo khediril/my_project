@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\CategoryRepository;
 use Psr\Log\LoggerInterface;
 use App\Repository\ProductRepository;
@@ -10,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/product', name: 'app_product_')]
 class ProductController extends AbstractController
@@ -30,7 +32,7 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
-    #[Route('/{id}', name: 'detail')]
+    #[Route('/{id}', name: 'detail',requirements: ['id' => '\d+'])]
     public function detail($id,ProductRepository $productRepository): Response
     {
         $product = $productRepository->find($id);
@@ -71,6 +73,33 @@ class ProductController extends AbstractController
 
         $logger->info('Un produit est ajoute avec succes ');
         return $this->redirectToRoute('app_product_list');
+    }
+    #[Route('/formadd', name: 'formadd')]
+    public function formadd(Request $request,EntityManagerInterface $em,LoggerInterface $logger,CategoryRepository $repoCateg): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class,$product);
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            //$product = $form->getData();
+            $product->setCreatedAt(new \DateTime());
+            $em->persist($product);
+            $em->flush();
+            $this->addFlash(
+                'notice',
+                'Produit ajoute avec succes!'
+            );
+            $logger->info('Un produit est ajoute avec succes ');
+
+            // ... perform some action, such as saving the task to the database
+
+            return $this->redirectToRoute('app_product_list');
+        }
+        return $this->render('product/formadd.html.twig',
+                    ['form'=>$form]);
     }
     #[Route('/update/{id}/{price}', name: 'update')]
     public function update($id,$price,ProductRepository $productRepository,EntityManagerInterface $em,LoggerInterface $logger): Response

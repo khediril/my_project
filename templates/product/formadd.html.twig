@@ -1,0 +1,16 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Liste des produits
+{% endblock %}
+{% block slider %}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1>Ajout d'un produit</h1>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<input class="btn btn-primary" type="submit" value="Ajouter"/>
+{{ form_end(form) }}
+</div>
+{% endblock %}
